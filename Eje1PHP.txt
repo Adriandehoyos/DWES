@@ -1,0 +1,99 @@
+#Ejercicio1
+$a = 2;
+$b = 5;
+$suma = $a + $b;
+echo "La suma es: " . $suma;
+
+#Ejercicio2
+
+$a = 2;
+$b = 5;
+
+if ($a > $b) {
+    echo "El numero a es mayor que el b";
+} elseif ($a == $b) {
+    echo "El numero a y b son iguales";
+} else {
+    echo "El numero a es mas pequeño que el b";
+}
+
+#Ejercicio3
+$a = "Hola Mundo";
+$b = "Bienvenidos a decroly";
+
+echo $a  . " ".  $b
+
+#Ejercicio 4
+$frutas = array("Pera","Manzana","Plantano", "Sandia", "Melon");
+echo "Me gusta mucho la " . $frutas[3];
+
+#Ejercicio5
+for($x = 1; $x <= 5 ;$x++)
+  {
+	echo $x;
+  }
+
+#Ejercicio6
+$a = 13;
+$comprobacion = $a % 2;
+if ($comprobacion == 0) {
+    echo "El numero a es par";
+} else {
+    echo "El numero a es impar";
+}
+
+#Ejercicio7
+$texto = "Esto es un ejemplo de una cadena de texto";
+
+echo strlen($texto);
+
+#Ejercicio8
+$nums = [4, 9, 10, 2, 1];
+
+$resultado = 1;
+
+foreach($nums as $numero){
+$resultado *= $numero;
+}
+
+echo "El resultado es: " . $resultado;
+
+#Ejercicio9
+function obtieneFactorial($numero){ 
+    $factorial = 1; 
+    for ($i = 1; $i <= $numero; $i++){ 
+      $factorial = $factorial * $i; 
+    } 
+    return $factorial; 
+} 
+   
+$numero = 5; 
+$resultado = obtieneFactorial($numero); 
+echo "Factorial de $numero  = $resultado";
+
+#Ejercicio10
+$texto = "convierte este texto en un array con php";
+
+$separado = explode(" ", $texto);
+
+sort($separado);
+
+foreach ($separado as $separadas) {
+    echo $separadas . "<br>";
+}
+
+#Ejercicio11
+
+
+
+
+
+
+
+
+
+
+
+
+
+
