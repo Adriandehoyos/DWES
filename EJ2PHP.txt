@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<?php
+//1. Declaro el array
+$nombres = ["Adrian", "Marina", "Silvia", "Raul", "Joel"];
+
+// 2. Contar la cantidad total de caracteres en todos los nombres
+function contarCaracteresTotales($array) {
+    $total = 0; // Inicializamos el contador
+    foreach ($array as $nombre) { // Recorremos cada nombre del array
+        $total += strlen($nombre); // strlen devuelve la longitud del nombre y lo sumamos al total
+    }
+    return $total; // Retornamos la suma total de caracteres
+}
+
+echo "Total de caracteres: " . contarCaracteresTotales($nombres); // Mostramos el total
+echo "<br>";
+
+// 3. Contar la cantidad de veces que aparece una letra específica
+function contarLetra($array, $letra) {
+    $letra = strtolower($letra); // Ignorar mayúsculas/minúsculas
+    $total = 0; // Inicializamos contador
+    foreach ($array as $nombre) {
+        // substr_count cuenta cuántas veces aparece $letra dentro del nombre
+        $total += substr_count(strtolower($nombre), $letra); 
+    }
+    return $total; // Retornamos la cantidad total de veces que aparece la letra
+}
+
+$letra = "a";
+echo "La letra '$letra' aparece " . contarLetra($nombres, $letra) . " veces.";
+echo "<br>";
+
+// 4. Contar la cantidad de caracteres específicos (vocales y consonantes)
+function contarVocalesYConsonantes($array) {
+    $vocales = "aeiou"; // Definimos las vocales
+    $totalVocales = 0;
+    $totalConsonantes = 0;
+
+    foreach ($array as $nombre) {
+        $nombre = strtolower($nombre); // Convertimos a minúsculas para comparar
+        for ($i = 0; $i < strlen($nombre); $i++) { // Recorremos cada letra del nombre
+            $letra = $nombre[$i]; // Tomamos la letra en la posición $i
+            if (ctype_alpha($letra)) { // Solo consideramos letras
+                if (strpos($vocales, $letra) !== false) { // strpos devuelve posición si encuentra la letra
+                    $totalVocales++; // Si es vocal, aumentamos el contador de vocales
+                } else {
+                    $totalConsonantes++; // Si no es vocal, es consonante
+                }
+            }
+        }
+    }
+    return ["vocales" => $totalVocales, "consonantes" => $totalConsonantes]; // Retornamos ambos totales
+}
+
+$resultado = contarVocalesYConsonantes($nombres);
+echo "Total de vocales: " . $resultado["vocales"];
+echo "<br>";
+echo "Total de consonantes: " . $resultado["consonantes"];
+echo "<br>";
+
+// 5. Encontrar el nombre más largo y el más corto
+function nombreMasLargoYMasCorto($array) {
+    $nombreLargo = $array[0]; // Inicializamos con el primer nombre
+    $nombreCorto = $array[0]; // Inicializamos con el primer nombre
+
+    foreach ($array as $nombre) { // Recorremos todos los nombres
+        if (strlen($nombre) > strlen($nombreLargo)) { // Si el nombre es más largo que el actual más largo
+            $nombreLargo = $nombre; // Actualizamos nombre más largo
+        }
+        if (strlen($nombre) < strlen($nombreCorto)) { // Si el nombre es más corto que el actual más corto
+            $nombreCorto = $nombre; // Actualizamos nombre más corto
+        }
+    }
+
+    echo "Nombre más largo: $nombreLargo (" . strlen($nombreLargo) . " caracteres)";
+    echo "<br>";
+    echo "Nombre más corto: $nombreCorto (" . strlen($nombreCorto) . " caracteres)";
+}
+
+nombreMasLargoYMasCorto($nombres); // Ejecutamos la función
+?>
+
+</body>
+</html>

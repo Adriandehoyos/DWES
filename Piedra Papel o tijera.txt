@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<?php
+
+// Mensaje inicial
+echo "Bienvenido a Piedra Papel o Tijera. Jugaremos a 10 partidas y el que mas partidas gane sera el vencedor" . "<br>" . "<br>";
+
+// Opciones posibles
+$opciones = ["Piedra", "Papel", "Tijera"];
+
+// Contadores para las victorias y empates
+$Jugador1 = 0;
+$Jugador2 = 0;
+$empate = 0;
+
+// Número total de rondas
+$rondas = 10;
+
+// Bucle que se repite 10 veces (una por cada ronda)
+for ($i = 1; $i <= $rondas; $i++) {
+    
+    // Elección aleatoria de Jugador 1 y Jugador 2
+    $eleJugador1 = $opciones[array_rand($opciones)];
+    $eleJugador2 = $opciones[array_rand($opciones)];
+    
+    // Mostrar elecciones
+    echo "Jugador 1 ha elegido: " . $eleJugador1 ."<br>";
+    echo "Jugador 2 ha elegido: " . $eleJugador2 ."<br>" ."<br>";
+    
+    // Comprobamos si gana Jugador 1
+    if (
+        ($eleJugador1 == "Papel" && $eleJugador2 == "Piedra") ||
+        ($eleJugador1 == "Piedra" && $eleJugador2 == "Tijera") || 
+        ($eleJugador1 == "Tijera" && $eleJugador2 == "Papel")
+    ) {
+        echo "Gana Jugador 1" ."<br>"."<br>";
+        $Jugador1++; // Sumamos punto al Jugador 1
+    }
+    
+    // Comprobamos si gana Jugador 2
+    else if (
+        ($eleJugador2 == "Papel" && $eleJugador1 == "Piedra") ||
+        ($eleJugador2 == "Piedra" && $eleJugador1 == "Tijera") || 
+        ($eleJugador2 == "Tijera" && $eleJugador1 == "Papel")
+    ) {
+        echo "Gana Jugador 2" ."<br>"."<br>";
+        $Jugador2++; // Sumamos punto al Jugador 2
+    }
+    
+    // Si no gana ninguno → empate
+    else {
+        echo "Empate" ."<br>"."<br>";
+        $empate++; // Sumamos un empate
+    }
+}
+
+// Al final mostramos las estadísticas de las 10 rondas
+echo "ESTADISTICAS DE LAS 10 RONDAS" . "<br>";
+echo "Jugador 1 Ha ganado: " . $Jugador1 . "<br>";
+echo "Jugador 2 Ha ganado: " . $Jugador2 . "<br>";
+echo "Han empatado: " . $empate . "<br>";
+
+//Mostramos quien ha ganado mas partidas
+if ($Jugador1 > $Jugador2) {
+echo "Ha ganado el Jugador 1";
+}
+else if ($Jugador1 < $Jugador2){
+echo "Ha ganado el Jugador 1";
+}
+else{
+echo "Habeis empatado, Volver a Jugar";
+}
+?>
+
+</body>
+</html>
