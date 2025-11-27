@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Equipos</title>
+</head>
+<body>
+<h1>Lista de Equipos</h1>
+<ul>
+<li th:each="equipo : ${equipos}">
+<span th:text="${equipo.nombre}"></span>
+</li>
+</ul>
+</body>
+</html>
