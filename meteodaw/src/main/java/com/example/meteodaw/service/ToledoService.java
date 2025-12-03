@@ -1,12 +1,17 @@
 package com.example.meteodaw.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.example.meteodaw.Condicion;
+import com.example.meteodaw.entity.Santander;
 import com.example.meteodaw.entity.Toledo;
+import com.example.meteodaw.repository.SantanderRepository;
 import com.example.meteodaw.repository.ToledoRepository;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class ToledoService {
@@ -27,9 +32,13 @@ public class ToledoService {
             return toledoRepository.findAll();
         }
 
-        //GET FECHA (no funcciona)
-        public Toledo findByCondifiones(String Condicion){
-            return toledoRepository.findBy(null, null);
+        //GET CONDICION
+        public List <Toledo> findByCondiciones(Condicion Condicion){
+            return toledoRepository.findByCondicion(Condicion);
+        }
+        //GET FECHA
+        public List<Toledo> findByFecha(Date fecha){
+            return toledoRepository.findByFecha(fecha);
         }
 
         //POST
@@ -63,8 +72,13 @@ public class ToledoService {
 
 
         public void deleteById(Long id) {
-             toledoRepository.deleteById(toledo.getId());
-        }
+    if (toledoRepository.existsById(id)) {
+        toledoRepository.deleteById(id);
+    } else {
+        throw new EntityNotFoundException("Toledo con id " + id + " no existe");
+    }
+}
+
 
 
         

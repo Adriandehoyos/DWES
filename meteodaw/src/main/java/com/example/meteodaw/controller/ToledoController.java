@@ -1,6 +1,7 @@
 package com.example.meteodaw.controller;
 
 import java.net.URI;
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.meteodaw.Condicion;
+import com.example.meteodaw.entity.Santander;
 import com.example.meteodaw.entity.Toledo;
 import com.example.meteodaw.repository.ToledoRepository;
 import com.example.meteodaw.service.ToledoService;
@@ -33,13 +36,27 @@ public class ToledoController {
         return toledoService.findAll();
     }
 
+        //condicion
+    @GetMapping("/condicion/{condicion}")
+    public List<Toledo> getByCondicion(@PathVariable Condicion condicion) {
+        return toledoService.findByCondiciones(condicion);
+    }
+
+    //fecha
+    @GetMapping("/fecha/{fecha}")
+    public List<Toledo> getByFecha(@PathVariable Date fecha) {
+        return toledoService.findByFecha(fecha);
+    }
+
     @PostMapping
     public ResponseEntity<Toledo> create(@RequestBody Toledo toledo) {
         toledo.setId(null);
-        Toledo guardado = toledoService.save(toledo);
-        return ResponseEntity
-                .created(URI.create("/toledo/" + guardado.getId()))
-                .body(guardado);
+        return ResponseEntity.ok(toledoService.save(toledo));
+        //Toledo guardado = toledoService.save(toledo);
+    //     return ResponseEntity
+    //             .created(URI.create("/toledo/" + guardado.getId()))
+    //             .body(guardado);
+    // }
     }
 
     @PutMapping("/{id}/condicion")
