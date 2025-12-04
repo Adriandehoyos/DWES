@@ -1,0 +1,52 @@
+-- Eliminar la base de datos si existe
+DROP DATABASE IF EXISTS meteodaw_db;
+-- Crear la base de datos nuevamente
+CREATE DATABASE meteodaw_db
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+-- Usar la base de datos
+USE meteodaw_db;
+-- Crear tabla ciudades
+CREATE TABLE ciudades (
+    id BIGINT AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    pais VARCHAR(100),
+    PRIMARY KEY (id),
+    UNIQUE KEY uk_nombre (nombre)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+-- Crear tabla datos_meteorologicos
+CREATE TABLE datos_meteorologicos (
+    id BIGINT AUTO_INCREMENT,
+    ciudad_id BIGINT NOT NULL,
+    fecha DATE NOT NULL,
+    temperatura DECIMAL(5,2),
+    sensacion_termica DECIMAL(5,2),
+    probabilidad_lluvia DECIMAL(5,2),
+    descripcion VARCHAR(50),
+    PRIMARY KEY (id),
+    CONSTRAINT fk_ciudad FOREIGN KEY (ciudad_id) 
+        REFERENCES ciudades(id) 
+        ON DELETE CASCADE 
+        ON UPDATE CASCADE,
+    INDEX idx_ciudad (ciudad_id),
+    INDEX idx_fecha (fecha)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+-- Insertar ciudades de ejemplo
+INSERT INTO ciudades (nombre, pais) VALUES
+('Madrid', 'España'),
+('Barcelona', 'España'),
+('Santander', 'España');
+-- Insertar datos meteorológicos de ejemplo
+INSERT INTO datos_meteorologicos 
+(ciudad_id, fecha, temperatura, sensacion_termica, probabilidad_lluvia, descripcion)
+VALUES
+(1, NOW(), 15.5, 14.2, 20.0, 'Parcialmente nublado'),
+(1, DATE_SUB(NOW(), INTERVAL 1 HOUR), 14.8, 13.5, 25.0, 'Nublado'),
+(2, NOW(), 18.3, 17.5, 10.0, 'Soleado'),
+(2, DATE_SUB(NOW(), INTERVAL 1 HOUR), 17.8, 17.0, 15.0, 'Parcialmente nublado'),
+(3, NOW(), 12.5, 11.0, 60.0, 'Lluvioso'),
+(3, DATE_SUB(NOW(), INTERVAL 1 HOUR), 12.0, 10.5, 65.0, 'Lluvioso');
+-- Verificar que todo se creó correctamente
+SELECT 'Base de datos creada correctamente' AS mensaje;
+SELECT COUNT(*) AS total_ciudades FROM ciudades;
+SELECT COUNT(*) AS total_datos FROM datos_meteorologicos;
